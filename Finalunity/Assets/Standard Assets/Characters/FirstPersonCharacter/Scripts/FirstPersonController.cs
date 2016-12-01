@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
@@ -7,8 +6,7 @@ using UnityEngine.Networking;
 namespace UnityStandardAssets.Characters.FirstPerson {
     [RequireComponent(typeof (CharacterController))]
     [RequireComponent(typeof (AudioSource))]
-    public class FirstPersonController : NetworkBehaviour
-    {
+    public class FirstPersonController : NetworkBehaviour {
         [SerializeField] private bool m_IsWalking;
         [SerializeField] private float m_WalkSpeed;
         [SerializeField] private float m_RunSpeed;
@@ -40,10 +38,12 @@ namespace UnityStandardAssets.Characters.FirstPerson {
 
         public GameObject projectile;
         public Transform bulletSpawn;
+        private Transform attachedCamera;
         public float speed = 20;
         public float nextFire = 0.5f;
         public float myTime = 0.0f;
-        public float fireSpeed = 10.0f;
+        public float fireSpeed = 15.0f;
+
         // Use this for initialization
         private void Start() {
             m_CharacterController = GetComponent<CharacterController>();
@@ -56,6 +56,19 @@ namespace UnityStandardAssets.Characters.FirstPerson {
             m_Jumping = false;
             m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
+
+            if (isLocalPlayer) {
+                foreach (Transform child in transform) {
+                    if (child.CompareTag("Rifle")) {
+                        child.SetParent(Camera.main.transform, false);
+                        Vector3 newPos = child.position;
+                        newPos.y -= 0.5f;
+                        newPos.z -= 0.05f;
+                        child.position = newPos;
+                        break;
+                    }
+                }
+            }
         }
 
         // Update is called once per frame
@@ -63,8 +76,9 @@ namespace UnityStandardAssets.Characters.FirstPerson {
             if(!isLocalPlayer) {          
                 return;
             } else {
-                Camera.main.transform.position = transform.position - transform.forward * 10 + transform.up * 3;
-                Camera.main.transform.LookAt(transform.position);
+                //Camera.main.transform.position = transform.position - transform.forward * 10 + transform.up * 3;
+                Camera.main.transform.position = transform.position + transform.up * 0.5f;
+                //Camera.main.transform.LookAt(transform.position);
                 Camera.main.transform.parent = transform;
             }
 
@@ -78,14 +92,13 @@ namespace UnityStandardAssets.Characters.FirstPerson {
                 m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
 
-            if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
-            {
+            if (!m_PreviouslyGrounded && m_CharacterController.isGrounded) {
                 StartCoroutine(m_JumpBob.DoBobCycle());
                 m_MoveDir.y = 0f;
                 m_Jumping = false;
             }
-            if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded)
-            {
+
+            if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded) {
                 m_MoveDir.y = 0f;
             }
 
@@ -95,7 +108,7 @@ namespace UnityStandardAssets.Characters.FirstPerson {
         [Command]
         void CmdfireBullet() {
             GameObject bullet = (GameObject)Instantiate(projectile, bulletSpawn.position, bulletSpawn.rotation);
-
+            //bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * fireSpeed, ForceMode.Impulse);
             bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * fireSpeed;
 
             NetworkServer.Spawn(bullet);
@@ -186,27 +199,23 @@ namespace UnityStandardAssets.Characters.FirstPerson {
             m_Camera.transform.localPosition = newCameraPosition;
         }
 
-
-        private void GetInput(out float speed)
-        {
+        private void GetInput(out float speed) {
             // Read input
             float horizontal = CrossPlatformInputManager.GetAxis("Horizontal");
             float vertical = CrossPlatformInputManager.GetAxis("Vertical");
 
             bool waswalking = m_IsWalking;
 
-#if !MOBILE_INPUT
             // On standalone builds, walk/run speed is modified by a key press.
             // keep track of whether or not the character is walking or running
             m_IsWalking = !Input.GetKey(KeyCode.LeftShift);
-#endif
+
             // set the desired speed to be walking or running
             speed = m_IsWalking ? m_WalkSpeed : m_RunSpeed;
             m_Input = new Vector2(horizontal, vertical);
 
             // normalize input if it exceeds 1 in combined length:
-            if (m_Input.sqrMagnitude > 1)
-            {
+            if (m_Input.sqrMagnitude > 1) {
                 m_Input.Normalize();
             }
 
@@ -219,24 +228,18 @@ namespace UnityStandardAssets.Characters.FirstPerson {
             }
         }
 
-
-        private void RotateView()
-        {
+        private void RotateView() {
             m_MouseLook.LookRotation (transform, m_Camera.transform);
         }
 
-
-        private void OnControllerColliderHit(ControllerColliderHit hit)
-        {
+        private void OnControllerColliderHit(ControllerColliderHit hit) {
             Rigidbody body = hit.collider.attachedRigidbody;
             //dont move the rigidbody if the character is on top of it
-            if (m_CollisionFlags == CollisionFlags.Below)
-            {
+            if (m_CollisionFlags == CollisionFlags.Below) {
                 return;
             }
 
-            if (body == null || body.isKinematic)
-            {
+            if (body == null || body.isKinematic) {
                 return;
             }
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);

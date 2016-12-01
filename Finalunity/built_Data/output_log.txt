@@ -18,15 +18,15 @@ Platform assembly: D:\Helmaroc\Documents\Unity Projects\Game Development 2\Unity
 Loading D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.170 seconds
+- Completed reload, in  0.053 seconds
 Platform assembly: D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\System.dll (this message is harmless)
 desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 0.627359 ms
+UnloadTime: 0.760890 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 3f3c -> priority: 1 
-  Thread -> id: 15ec -> priority: 1 
+  Thread -> id: 26d0 -> priority: 1 
+  Thread -> id: 3534 -> priority: 1 
 Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:7777}
