@@ -37,9 +37,12 @@ GameObject:
   - 4: {fileID: 4000010098300010}
   - 198: {fileID: 198000012407847754}
   - 199: {fileID: 199000011036542066}
+  - 65: {fileID: 65000012758175042}
+  - 114: {fileID: 114000010379524938}
+  - 114: {fileID: 114000012010510322}
   m_Layer: 0
   m_Name: Particle System 1
-  m_TagString: Untagged
+  m_TagString: Fire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010682796084}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.47, z: -0}
+  m_LocalPosition: {x: -15.33, y: 1.33, z: 4.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -71,6 +74,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000010098300010}
   m_RootOrder: 0
+--- !u!65 &65000012758175042
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010682796084}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 2.8318245}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!108 &108000011131073150
 Light:
   m_ObjectHideFlags: 1
@@ -105,6 +120,51 @@ Light:
   m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114000010379524938
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010682796084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 129
+    i1: 73
+    i2: 190
+    i3: 89
+    i4: 218
+    i5: 59
+    i6: 42
+    i7: 180
+    i8: 42
+    i9: 70
+    i10: 91
+    i11: 185
+    i12: 63
+    i13: 9
+    i14: 9
+    i15: 201
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
+--- !u!114 &114000012010510322
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010682796084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfecfc3e5ae96b4459299f0b1b643b58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  self: {fileID: 1000010682796084}
+  time: 10
 --- !u!198 &198000012407847754
 ParticleSystem:
   m_ObjectHideFlags: 1

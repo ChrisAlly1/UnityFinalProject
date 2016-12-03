@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Rifle
   - Enemy
+  - Fire
+  - Snow
   layers:
   - Default
   - TransparentFX

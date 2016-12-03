@@ -36,6 +36,8 @@ namespace UnityStandardAssets.Characters.FirstPerson {
         private bool m_Jumping;
         private AudioSource m_AudioSource;
 
+       
+        
         public GameObject projectile;
         public Transform bulletSpawn;
         private Transform attachedCamera;
@@ -114,8 +116,23 @@ namespace UnityStandardAssets.Characters.FirstPerson {
             NetworkServer.Spawn(bullet);
 
             Destroy(bullet, 2);
+        } 
+        void OnTriggerStay(Collider c)
+        {
+            if (!isLocalPlayer)
+            {
+               return;
+            }
+            if (c.gameObject.tag == "Snow")
+            {
+                Debug.Log("lowerspped");
+                m_WalkSpeed = 4;
+            }
         }
-
+        void OnTriggerExit()
+        {
+            m_WalkSpeed = 8;
+        }
         private void FixedUpdate()
         {
             if (!isLocalPlayer)
@@ -159,7 +176,10 @@ namespace UnityStandardAssets.Characters.FirstPerson {
 
             m_MouseLook.UpdateCursorLock();
         }
-
+        void OnTriggerEnter()
+        {
+            
+        }
         private void ProgressStepCycle(float speed)
         {
             if (m_CharacterController.velocity.sqrMagnitude > 0 && (m_Input.x != 0 || m_Input.y != 0))

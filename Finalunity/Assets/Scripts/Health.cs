@@ -4,6 +4,7 @@ using UnityEngine.Networking;
 
 public class Health : NetworkBehaviour {
     public const int maxHealth = 100;
+    public float timerDMG = 0.5f;
     public bool destroyOnDeath;
     [SyncVar(hook = "OnChangeHealth")]
     public int currentHealth;
@@ -18,12 +19,41 @@ public class Health : NetworkBehaviour {
 
         currentHealth = maxHealth;
     }
-
+    //used for collision with fire
+    void OnTriggerStay(Collider c)
+    {
+        //added this in there cuz other take damage metho had it
+        if (!isServer)
+        {
+            return;
+        }
+        //checks so it only takes damage if it collided with the fire
+        if (c.gameObject.tag == "Fire")
+        {
+            timerDMG -= Time.deltaTime;
+            if (timerDMG <= 0)
+            {
+                currentHealth -= 1;
+                timerDMG = 0.5f;
+            }
+        }
+        if (currentHealth <= 0)
+        {
+            if (destroyOnDeath)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                currentHealth = maxHealth;
+                RpcRespawn();
+            }
+        }
+    }
     public void TakeDamage(int amount) {
         if (!isServer) {
             return;
         }
-
         currentHealth -= amount;
         if (currentHealth <= 0) {
             if (destroyOnDeath) {
