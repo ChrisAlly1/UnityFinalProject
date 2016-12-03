@@ -24,6 +24,7 @@ GameObject:
   - 114: {fileID: 114000012765918098}
   - 114: {fileID: 114000010143701470}
   - 65: {fileID: 65000013873679448}
+  - 114: {fileID: 114000012969064436}
   m_Layer: 0
   m_Name: Particle System
   m_TagString: Snow
@@ -67,7 +68,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfecfc3e5ae96b4459299f0b1b643b58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  self: {fileID: 0}
   time: 10
 --- !u!114 &114000012765918098
 MonoBehaviour:
@@ -101,13 +101,33 @@ MonoBehaviour:
     i15: 131
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &114000012969064436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012045804486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.125
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!198 &198000013368601650
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012045804486}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -145,12 +165,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 1111302376
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 1
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 1111302376
   InitialModule:
     serializedVersion: 2
     enabled: 1

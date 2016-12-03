@@ -34,9 +34,6 @@ namespace UnityStandardAssets.Characters.FirstPerson {
         private float m_StepCycle;
         private float m_NextStep;
         private bool m_Jumping;
-        private AudioSource m_AudioSource;
-
-       
         
         public GameObject projectile;
         public Transform bulletSpawn;
@@ -56,7 +53,6 @@ namespace UnityStandardAssets.Characters.FirstPerson {
             m_StepCycle = 0f;
             m_NextStep = m_StepCycle/2f;
             m_Jumping = false;
-            m_AudioSource = GetComponent<AudioSource>();
 			m_MouseLook.Init(transform , m_Camera.transform);
 
             if (isLocalPlayer) {
