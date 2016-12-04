@@ -8,6 +8,7 @@ public class Health : NetworkBehaviour {
     public GameObject powerup1;
     public GameObject powerup2;
     public bool destroyOnDeath;
+    bool invincibility;
     [SyncVar(hook = "OnChangeHealth")]
     public int currentHealth;
     public RectTransform healthBar;
@@ -20,10 +21,11 @@ public class Health : NetworkBehaviour {
         }
 
         currentHealth = maxHealth;
+        invincibility = false;
     }
+
     //used for collision with fire
-    void OnTriggerStay(Collider c)
-    {
+    void OnTriggerStay(Collider c) {
         //added this in there cuz other take damage metho had it
         if (!isServer)
         {
@@ -97,5 +99,9 @@ public class Health : NetworkBehaviour {
 
             transform.position = spawnPoint;
         }
+    }
+
+    public void SwitchInvincibility() {
+        invincibility = !invincibility;
     }
 }

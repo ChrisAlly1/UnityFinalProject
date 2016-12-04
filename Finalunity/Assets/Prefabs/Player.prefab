@@ -113,8 +113,8 @@ GameObject:
   - 114: {fileID: 114000013180269430}
   - 114: {fileID: 114000010741941958}
   - 114: {fileID: 114000013619773532}
-  - 54: {fileID: 54000013109241744}
   - 136: {fileID: 136000014013106670}
+  - 54: {fileID: 54000012260076696}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -236,7 +236,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013443272554}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!54 &54000013109241744
+--- !u!54 &54000012260076696
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -464,7 +464,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ec5cf00ca181d45a42ba1870e148c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsWalking: 0
   m_WalkSpeed: 8
   m_RunSpeed: 0
   m_RunstepLenghten: 0
@@ -473,7 +472,7 @@ MonoBehaviour:
   m_GravityMultiplier: 1
   m_MouseLook:
     XSensitivity: 2
-    YSensitivity: 2
+    YSensitivity: 0
     clampVerticalRotation: 1
     MinimumX: -90
     MaximumX: 90
@@ -533,10 +532,14 @@ MonoBehaviour:
     BobDuration: 0
     BobAmount: 0
   m_StepInterval: 0
+  smgE: 0
+  pistolE: 1
   projectile: {fileID: 1000010986829768, guid: c2ecb7669d523c941ae980e62c34097e, type: 2}
   bulletSpawn: {fileID: 4000012918516214}
+  powerUpTimer: 10
   speed: 20
-  nextFire: 0.5
+  nextFireP: 0.5
+  nextfireS: 0.1
   myTime: 0
   fireSpeed: 10
 --- !u!114 &114000013554935904
@@ -561,6 +564,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d04518bfd9fb104487c9b1a8220c457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timerDMG: 0.5
+  powerup1: {fileID: 0}
+  powerup2: {fileID: 0}
   destroyOnDeath: 0
   currentHealth: 100
   healthBar: {fileID: 224000013529555072}
@@ -614,7 +620,7 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 1
+  m_Height: 1.8
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3

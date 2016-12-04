@@ -25,7 +25,7 @@ GameObject:
   - 54: {fileID: 54000010559560412}
   - 114: {fileID: 114000010095961984}
   - 114: {fileID: 114000010901614782}
-  - 114: {fileID: 114000012642563388}
+  - 114: {fileID: 114000014026599060}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_SnapThreshold: 5
   m_InterpolateRotation: 1
   m_InterpolateMovement: 1
---- !u!114 &114000012642563388
+--- !u!114 &114000014026599060
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -157,12 +157,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010986829768}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95a5553c7feee70449755ec1abeb18b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 894e173042540594395653f304f739ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 0
-  damageamt: 10
-  self: {fileID: 1000013443272554, guid: 2bbc86130a8055348b34956a24d1f556, type: 2}
 --- !u!135 &135000012982024236
 SphereCollider:
   m_ObjectHideFlags: 1
