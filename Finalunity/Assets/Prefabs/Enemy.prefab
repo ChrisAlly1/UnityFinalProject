@@ -233,6 +233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d04518bfd9fb104487c9b1a8220c457, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timerDMG: 0.5
+  powerup1: {fileID: 1000012039292994, guid: 00f605dcbdaea1d45b3ea3711801890f, type: 2}
+  powerup2: {fileID: 1000012039292994, guid: 48f5e1ec010cf6248b0bb5ef89a83de2, type: 2}
   destroyOnDeath: 1
   currentHealth: 100
   healthBar: {fileID: 224000012123795996}

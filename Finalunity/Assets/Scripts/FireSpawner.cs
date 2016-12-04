@@ -7,7 +7,7 @@ public class FireSpawner : NetworkBehaviour {
     public float fireRespawn = 10.0f;
     [SyncVar]
     Quaternion spawnRotation;
-
+   
     public override void OnStartServer() {
         spawnRotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
 

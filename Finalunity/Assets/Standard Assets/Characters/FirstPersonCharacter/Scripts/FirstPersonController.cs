@@ -34,12 +34,29 @@ namespace UnityStandardAssets.Characters.FirstPerson {
         private float m_StepCycle;
         private float m_NextStep;
         private bool m_Jumping;
-        
+
+        //variables to know which gun is equiped
+        public bool smgE = false;
+        public bool pistolE = true;
+
         public GameObject projectile;
         public Transform bulletSpawn;
         private Transform attachedCamera;
+
+        //varriables for the first power up - bonus movementspeed
+        public int powerup1 = 0;
+        public float powerup1Timer = 10.0f;
+        public bool powerup1Active = false;
+
+        //variables fro second power up - double damage
+        public int powerup2 = 0;
+        public float powerup2Timer = 10.0f;
+        public bool powerup2Active = false;
+       
+
         public float speed = 20;
-        public float nextFire = 0.5f;
+        public float nextFireP = 0.5f;
+        public float nextfireS = 0.1f;
         public float myTime = 0.0f;
         public float fireSpeed = 15.0f;
 
@@ -79,11 +96,66 @@ namespace UnityStandardAssets.Characters.FirstPerson {
                 //Camera.main.transform.LookAt(transform.position);
                 Camera.main.transform.parent = transform;
             }
-
-            if (Input.GetButtonDown("Fire1")) {
-                CmdfireBullet();
+            //equip smg
+            if(Input.GetKeyDown(KeyCode.O))
+            {
+                smgE = true;
+                pistolE = false;
+            }
+            //equip pistol
+            if(Input.GetKeyDown(KeyCode.P))
+            {
+                smgE = false;
+                pistolE = true;
+            }
+            //used to activated powerup 1
+            if(Input.GetKeyDown(KeyCode.I))
+            {
+                if(powerup1 >=1)
+                {                   
+                    powerup1 = powerup1 - 1;
+                    powerup1Active = true;
+                }
+            }
+           
+            //effects of powerup1
+            if(powerup1Active == true)
+            {
+                m_WalkSpeed = 16;
+                powerup1Timer -= Time.deltaTime;
+            }
+            //turn off powerup 1
+            if(powerup1Timer <= 0)
+            {
+                powerup1Active = false;
+                powerup1Timer = 10.0f;
+                m_WalkSpeed = 8;
             }
 
+            //countdown timer to allow the player to shoot again its just always subtracting and resets when the player shoots
+            nextFireP -= Time.deltaTime;
+            nextfireS -= Time.deltaTime;
+
+
+            //used to fire pistol
+            if (Input.GetButtonDown("Fire1")) {
+                if (pistolE == true && nextFireP <=0)
+                {
+                    CmdfireBullet();
+                    //timer until can shoot again
+                    nextFireP = 0.5f;
+                }         
+            }
+            //used to fire the smg
+            if(Input.GetButton("Fire1"))
+            {
+                if (smgE == true && nextfireS <= 0)
+                {
+                    CmdfireBullet();
+                    //timer until can shoot again
+                    nextfireS = 0.1f;
+                }
+            }
             RotateView();
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump) {
@@ -99,7 +171,7 @@ namespace UnityStandardAssets.Characters.FirstPerson {
             if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded) {
                 m_MoveDir.y = 0f;
             }
-
+            
             m_PreviouslyGrounded = m_CharacterController.isGrounded;
         }
 
@@ -107,12 +179,23 @@ namespace UnityStandardAssets.Characters.FirstPerson {
         void CmdfireBullet() {
             GameObject bullet = (GameObject)Instantiate(projectile, bulletSpawn.position, bulletSpawn.rotation);
             //bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * fireSpeed, ForceMode.Impulse);
-            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * fireSpeed;
-
+            bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * fireSpeed;        
             NetworkServer.Spawn(bullet);
 
             Destroy(bullet, 2);
         } 
+
+        //checking for collision with power ups
+        void OnTriggerEnter(Collider c)
+        {
+            if(c.gameObject.tag == "Powerup1")
+            {
+                Debug.Log("working power up");
+                powerup1 = powerup1 + 1;
+                Destroy(c.gameObject);
+            }
+        }
+        //checking if player is in the snow
         void OnTriggerStay(Collider c)
         {
             if (!isLocalPlayer)
@@ -125,8 +208,13 @@ namespace UnityStandardAssets.Characters.FirstPerson {
                 m_WalkSpeed = 4;
             }
         }
+        //reset movement speed when exit snow
         void OnTriggerExit()
         {
+            if (!isLocalPlayer)
+            {
+                return;
+            }
             m_WalkSpeed = 8;
         }
         private void FixedUpdate()

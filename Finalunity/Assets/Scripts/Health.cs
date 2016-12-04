@@ -5,13 +5,15 @@ using UnityEngine.Networking;
 public class Health : NetworkBehaviour {
     public const int maxHealth = 100;
     public float timerDMG = 0.5f;
+    public GameObject powerup1;
+    public GameObject powerup2;
     public bool destroyOnDeath;
     [SyncVar(hook = "OnChangeHealth")]
     public int currentHealth;
     public RectTransform healthBar;
-
+    
     private NetworkStartPosition[] spawnPoints;
-
+   
     void Start() {
         if (isLocalPlayer) {
             spawnPoints = FindObjectsOfType<NetworkStartPosition>();
@@ -41,7 +43,22 @@ public class Health : NetworkBehaviour {
         {
             if (destroyOnDeath)
             {
+                 int i =(Random.Range(0, 100));
+
+                //this spawns first power up
+                if (i < 50)
+                {
+                    GameObject powerup = (GameObject)Instantiate(powerup1, gameObject.transform.position, gameObject.transform.rotation);
+                    NetworkServer.Spawn(powerup);
+                }
+                //this spawns second power up
+                if( i > 50)
+                 {
+                    GameObject powerup2a = (GameObject)Instantiate(powerup2, gameObject.transform.position, gameObject.transform.rotation);
+                    NetworkServer.Spawn(powerup2a);
+                }
                 Destroy(gameObject);
+                
             }
             else
             {
