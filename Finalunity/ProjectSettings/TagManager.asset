@@ -8,13 +8,18 @@ TagManager:
   - Enemy
   - Fire
   - Snow
-  - Powerup1
+  - FastMove
   - HealthBar2
   - Inventory1
   - Inventory2
   - Inventory3
   - Inventory4
   - Inventory5
+  - FastFire
+  - DoubleDamage
+  - JumpHigh
+  - Invincibility
+  - Timer
   layers:
   - Default
   - TransparentFX

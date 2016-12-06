@@ -3,6 +3,7 @@ using UnityStandardAssets.CrossPlatformInput;
 using UnityStandardAssets.Utility;
 using UnityEngine.Networking;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CharacterController))]
 public class FirstPersonController : NetworkBehaviour {
@@ -42,20 +43,21 @@ public class FirstPersonController : NetworkBehaviour {
     public enum PowerUp { NONE, FAST_MOVE, DOUBLE_DAMAGE, FAST_FIRE, JUMP_HIGH, INVINCIBLE };
 
     //variables to know which gun is equiped
-    public bool smgE = false;
-    public bool pistolE = true;
+    private bool smgE = false;
+    private bool pistolE = true;
 
-    public GameObject projectile;
+    public GameObject projectile, SMG, pistol;
     public Transform bulletSpawn;
     private Transform attachedCamera;
+    private Text powerUpTimerText;
 
     //timer for power ups
-    public float powerUpTimer = 10.0f;
+    private float powerUpTimer = 10.0f;
     private PowerUp currentPower;
 
     public float speed = 20;
     public float nextFireP = 0.7f;
-    public float nextfireS = 0.1f;
+    public float nextFireS = 0.1f;
     public float myTime = 0.0f;
     public float fireSpeed = 15.0f;
 
@@ -76,9 +78,9 @@ public class FirstPersonController : NetworkBehaviour {
             health = gameObject.GetComponent<Health>();
             inventory = gameObject.GetComponent<Inventory>();
             powerActive = false; doubleDamageVar = false;
+            pistol.SetActive(true); SMG.SetActive(false);
 
             //Attaches the gun to the camera
-
             foreach (Transform child in transform) {
                 if (child.CompareTag("Rifle")) {
                     child.SetParent(Camera.main.transform, false);
@@ -89,6 +91,9 @@ public class FirstPersonController : NetworkBehaviour {
                     break;
                 }
             }
+
+            powerUpTimerText = GameObject.FindGameObjectWithTag("Timer").GetComponent<Text>();
+            powerUpTimerText.text = "";
 
             powerEffect.Add(PowerUp.DOUBLE_DAMAGE, doubleDamage);
             powerEffect.Add(PowerUp.FAST_FIRE, fastFire);
@@ -110,15 +115,13 @@ public class FirstPersonController : NetworkBehaviour {
         //equip smg
         if (Input.GetKeyDown(KeyCode.O)) {
             Debug.Log("SMG equipped");
-            smgE = true;
-            pistolE = false;
-        }
-
+            smgE = true; pistolE = false;
+            pistol.SetActive(false); SMG.SetActive(true);
         //equip pistol
-        if (Input.GetKeyDown(KeyCode.P)) {
+        } else if (Input.GetKeyDown(KeyCode.P)) {
             Debug.Log("Pistol equipped");
-            smgE = false;
-            pistolE = true;
+            smgE = false; pistolE = true;
+            pistol.SetActive(true); SMG.SetActive(false);
         }
 
         //for activating power ups
@@ -175,6 +178,8 @@ public class FirstPersonController : NetworkBehaviour {
             }
         } else {
             powerUpTimer -= Time.deltaTime;
+            int g = (int)powerUpTimer;
+            powerUpTimerText.text = g.ToString();
         }
 
         if (powerUpTimer <= 0.0f) {
@@ -183,8 +188,9 @@ public class FirstPersonController : NetworkBehaviour {
                 health.SwitchInvincibility();
             }
 
-            m_WalkSpeed = 8;
-            nextFireP = 0.7f; nextfireS = 0.1f;
+            powerUpTimerText.text = "";
+            m_WalkSpeed = 8; m_JumpSpeed = 6;
+            nextFireP = 0.7f; nextFireS = 0.1f;
             powerUpTimer = 10.0f;
             currentPower = PowerUp.NONE;
             doubleDamageVar = false; powerActive = false;
@@ -192,18 +198,26 @@ public class FirstPersonController : NetworkBehaviour {
 
         //countdown timer to allow the player to shoot again its just always subtracting and resets when the player shoots
         nextFireP -= Time.deltaTime;
-        nextfireS -= Time.deltaTime;
+        nextFireS -= Time.deltaTime;
 
         //used to fire the smg
         if (Input.GetButton("Fire1")) {
-            if (smgE && nextfireS <= 0.0f) {
+            if (smgE && nextFireS <= 0.0f) {
                 CmdfireBullet();
                 //timer until can shoot again
-                nextfireS = 0.1f;
+                if (currentPower == PowerUp.FAST_FIRE) {
+                    nextFireS = 0.05f;
+                } else {
+                    nextFireS = 0.1f;
+                }
             } else if (pistolE && nextFireP <= 0.0f) {
                 CmdfireBullet();
                 //timer until can shoot again
-                nextFireP = 0.7f;
+                if (currentPower == PowerUp.FAST_FIRE) {
+                    nextFireP = 0.35f;
+                } else {
+                    nextFireP = 0.7f;
+                }
             }
         }
 
@@ -243,9 +257,20 @@ public class FirstPersonController : NetworkBehaviour {
 
     //checking for collision with power ups
     void OnTriggerEnter(Collider c) {
-        if (c.gameObject.tag == "Powerup1") {
-            Debug.Log("working power up");
-            currentPower = PowerUp.FAST_MOVE;
+        if (c.gameObject.tag == "FastMove") {
+            inventory.AddPowerUp(PowerUp.FAST_MOVE);
+            Destroy(c.gameObject);
+        } else if (c.gameObject.tag == "FastFire") {
+            inventory.AddPowerUp(PowerUp.FAST_FIRE);
+            Destroy(c.gameObject);
+        } else if (c.gameObject.tag == "DoubleDamage") {
+            inventory.AddPowerUp(PowerUp.DOUBLE_DAMAGE);
+            Destroy(c.gameObject);
+        } else if (c.gameObject.tag == "JumpHigh") {
+            inventory.AddPowerUp(PowerUp.JUMP_HIGH);
+            Destroy(c.gameObject);
+        } else if (c.gameObject.tag == "Invincibility") {
+            inventory.AddPowerUp(PowerUp.INVINCIBLE);
             Destroy(c.gameObject);
         }
     }
@@ -258,7 +283,11 @@ public class FirstPersonController : NetworkBehaviour {
 
         if (c.gameObject.tag == "Snow") {
             Debug.Log("lower speed");
-            m_WalkSpeed /= 2;
+            if (currentPower == PowerUp.FAST_MOVE) {
+                m_WalkSpeed = 8;
+            } else {
+                m_WalkSpeed = 4;
+            }
         }
     }
 
@@ -268,7 +297,11 @@ public class FirstPersonController : NetworkBehaviour {
             return;
         }
 
-        m_WalkSpeed *= 2;
+        if (currentPower == PowerUp.FAST_MOVE) {
+            m_WalkSpeed = 16;
+        } else {
+            m_WalkSpeed = 8;
+        }
     }
 
     private void FixedUpdate() {
@@ -404,8 +437,8 @@ public class FirstPersonController : NetworkBehaviour {
 
     void fastFire() {
         Debug.Log("Fast Fire power up");
-        nextFireP /= 2.0f;
-        nextfireS /= 2.0f;
+        nextFireP = 0.35f;
+        nextFireS = 0.05f;
     }
 
     void invincible() {
@@ -415,5 +448,6 @@ public class FirstPersonController : NetworkBehaviour {
 
     void jumpHigh() {
         Debug.Log("Jump height up");
+        m_JumpSpeed = 10;
     }
 }

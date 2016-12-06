@@ -234,8 +234,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerDMG: 0.5
-  powerup1: {fileID: 1000012039292994, guid: 00f605dcbdaea1d45b3ea3711801890f, type: 2}
-  powerup2: {fileID: 1000012039292994, guid: 48f5e1ec010cf6248b0bb5ef89a83de2, type: 2}
+  powerups:
+  - {fileID: 1000013364399246, guid: f006dff6c8b011b45a94e98c094179ee, type: 2}
+  - {fileID: 1000012757287084, guid: a6c26585dcecf684b9bd286f3510404b, type: 2}
+  - {fileID: 1000012116644464, guid: 0d3b42ce5cb80594aafbb3c35a17026a, type: 2}
+  - {fileID: 1000010389407874, guid: 8827d0e5fbf0a5149859a3bc1f1e41d8, type: 2}
+  - {fileID: 1000012668556092, guid: 174959851ce7f344285e785b34dc0683, type: 2}
   destroyOnDeath: 1
   currentHealth: 100
   healthBar1: {fileID: 224000012123795996}

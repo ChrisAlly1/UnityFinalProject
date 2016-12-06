@@ -11,7 +11,6 @@ public class Inventory : MonoBehaviour {
     public Texture[] powerups;
     public Texture border;
     private powerUp[] currentInventory = new powerUp[SIZE];
-    //public enum PowerUp { NONE, FAST_MOVE, DOUBLE_DAMAGE, FAST_FIRE, JUMP_HIGH, INVINCIBLE };
     private Dictionary<powerUp, Texture> textureList = new Dictionary<powerUp, Texture>();
 
     private int numberPowerups;
