@@ -11,13 +11,18 @@ public class Health : NetworkBehaviour {
     bool invincibility;
     [SyncVar(hook = "OnChangeHealth")]
     public int currentHealth;
-    public RectTransform healthBar;
-    
+    public RectTransform healthBar2;
+
     private NetworkStartPosition[] spawnPoints;
-   
+
     void Start() {
         if (isLocalPlayer) {
             spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+
+            GameObject[] rectTransforms = GameObject.FindGameObjectsWithTag("HealthBar2");
+            foreach (GameObject item in rectTransforms) {
+                healthBar2 = item.GetComponent<RectTransform>();
+            }
         }
 
         currentHealth = maxHealth;
@@ -27,10 +32,10 @@ public class Health : NetworkBehaviour {
     //used for collision with fire
     void OnTriggerStay(Collider c) {
         //added this in there cuz other take damage metho had it
-        if (!isServer)
-        {
+        if (!isServer) {
             return;
         }
+
         //checks so it only takes damage if it collided with the fire
         if (c.gameObject.tag == "Fire")
         {
@@ -41,38 +46,34 @@ public class Health : NetworkBehaviour {
                 timerDMG = 0.5f;
             }
         }
-        if (currentHealth <= 0)
-        {
-            if (destroyOnDeath)
-            {
-                 int i =(Random.Range(0, 100));
+
+        if (currentHealth <= 0) {
+            if (destroyOnDeath) {
+                int i = (Random.Range(1, 100));
 
                 //this spawns first power up
-                if (i < 50)
-                {
+                if (i <= 50) {
                     GameObject powerup = (GameObject)Instantiate(powerup1, gameObject.transform.position, gameObject.transform.rotation);
                     NetworkServer.Spawn(powerup);
-                }
+                } else {
                 //this spawns second power up
-                if( i > 50)
-                 {
                     GameObject powerup2a = (GameObject)Instantiate(powerup2, gameObject.transform.position, gameObject.transform.rotation);
                     NetworkServer.Spawn(powerup2a);
                 }
+
                 Destroy(gameObject);
-                
-            }
-            else
-            {
+            } else {
                 currentHealth = maxHealth;
                 RpcRespawn();
             }
         }
     }
+
     public void TakeDamage(int amount) {
         if (!isServer) {
             return;
         }
+
         currentHealth -= amount;
         if (currentHealth <= 0) {
             if (destroyOnDeath) {
@@ -85,7 +86,9 @@ public class Health : NetworkBehaviour {
     }
 
     void OnChangeHealth(int currentHealth) {
-        healthBar.sizeDelta = new Vector2(currentHealth, healthBar.sizeDelta.y);
+        if (!gameObject.CompareTag("Enemy") && healthBar2 != null) {
+            healthBar2.sizeDelta = new Vector2(currentHealth * 2, healthBar2.sizeDelta.y);
+        }
     }
 
     [ClientRpc]

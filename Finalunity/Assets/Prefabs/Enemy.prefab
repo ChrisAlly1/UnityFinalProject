@@ -238,7 +238,8 @@ MonoBehaviour:
   powerup2: {fileID: 1000012039292994, guid: 48f5e1ec010cf6248b0bb5ef89a83de2, type: 2}
   destroyOnDeath: 1
   currentHealth: 100
-  healthBar: {fileID: 224000012123795996}
+  healthBar1: {fileID: 224000012123795996}
+  healthBar2: {fileID: 0}
 --- !u!114 &114000010566806194
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -9,6 +9,12 @@ TagManager:
   - Fire
   - Snow
   - Powerup1
+  - HealthBar2
+  - Inventory1
+  - Inventory2
+  - Inventory3
+  - Inventory4
+  - Inventory5
   layers:
   - Default
   - TransparentFX
