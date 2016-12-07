@@ -4,6 +4,7 @@ using UnityStandardAssets.Utility;
 using UnityEngine.Networking;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityStandardAssets.Characters.FirstPerson;
 
 [RequireComponent(typeof(CharacterController))]
 public class FirstPersonController : NetworkBehaviour {
@@ -21,6 +22,7 @@ public class FirstPersonController : NetworkBehaviour {
     [SerializeField] private CurveControlledBob m_HeadBob = new CurveControlledBob();
     [SerializeField] private LerpControlledBob m_JumpBob = new LerpControlledBob();
     [SerializeField] private float m_StepInterval;
+
 
     private Camera m_Camera;
     private bool m_Jump;
@@ -61,6 +63,7 @@ public class FirstPersonController : NetworkBehaviour {
     public float myTime = 0.0f;
     public float fireSpeed = 15.0f;
 
+    private MouseLook[] mous;
     // Use this for initialization
     private void Start() {
         if (isLocalPlayer) {
@@ -101,6 +104,7 @@ public class FirstPersonController : NetworkBehaviour {
             powerEffect.Add(PowerUp.JUMP_HIGH, jumpHigh);
             powerEffect.Add(PowerUp.INVINCIBLE, invincible);
         }
+       
     }
 
     // Update is called once per frame
@@ -108,7 +112,9 @@ public class FirstPersonController : NetworkBehaviour {
         if (!isLocalPlayer) {
             return;
         }
-
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         Camera.main.transform.position = transform.position + transform.up * 0.5f;
         Camera.main.transform.parent = transform;
 
@@ -303,7 +309,6 @@ public class FirstPersonController : NetworkBehaviour {
             m_WalkSpeed = 8;
         }
     }
-
     private void FixedUpdate() {
         if (!isLocalPlayer) {
             return;
@@ -340,7 +345,7 @@ public class FirstPersonController : NetworkBehaviour {
         ProgressStepCycle(speed);
         UpdateCameraPosition(speed);
 
-        m_MouseLook.UpdateCursorLock();
+       m_MouseLook.UpdateCursorLock();
     }
 
     private void ProgressStepCycle(float speed) {

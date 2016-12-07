@@ -1,47 +1,32 @@
-Initialize engine version: 5.4.1f1 (649f48bbbf0f)
+Initialize engine version: 5.4.0f3 (a6d8d714de6f)
 GfxDevice: creating device client; threaded=1
 Direct3D:
     Version:  Direct3D 11.0 [level 11.0]
-    Renderer: NVIDIA GeForce GTX 960M (ID=0x139b)
-    Vendor:   NVIDIA
-    VRAM:     2018 MB
+    Renderer: AMD Radeon R9 200 Series (ID=0x67b0)
+    Vendor:   ATI
+    VRAM:     3072 MB
 Begin MonoManager ReloadAssembly
-Platform assembly: D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
-Loading D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
-Platform assembly: D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-Platform assembly: D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
-Loading D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.050 seconds
-Platform assembly: D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: D:\Helmaroc\Documents\Unity Projects\Game Development 2\UnityFinalProject\Finalunity\built_Data\Managed\System.dll (this message is harmless)
-desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+Platform assembly: C:\Users\Chris\Documents\GitHub\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Chris\Documents\GitHub\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Chris\Documents\GitHub\UnityFinalProject\Finalunity\built_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\Chris\Documents\GitHub\UnityFinalProject\Finalunity\built_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\Chris\Documents\GitHub\UnityFinalProject\Finalunity\built_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Chris\Documents\GitHub\UnityFinalProject\Finalunity\built_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Chris\Documents\GitHub\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Chris\Documents\GitHub\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Chris\Documents\GitHub\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Chris\Documents\GitHub\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Chris\Documents\GitHub\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading C:\Users\Chris\Documents\GitHub\UnityFinalProject\Finalunity\built_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+- Completed reload, in  0.168 seconds
+Platform assembly: C:\Users\Chris\Documents\GitHub\UnityFinalProject\Finalunity\built_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Chris\Documents\GitHub\UnityFinalProject\Finalunity\built_Data\Managed\System.dll (this message is harmless)
+desktop: 1920x1080 144Hz; virtual: 5760x1080 at -1920,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 0.867161 ms
+UnloadTime: 0.699077 ms
 Setting up 2 worker threads for Enlighten.
-  Thread -> id: 3258 -> priority: 1 
-  Thread -> id: 3780 -> priority: 1 
-SMG equipped
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Pistol equipped
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Fast Fire power up
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
-Power up over
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
-
+  Thread -> id: 3a58 -> priority: 1 
+  Thread -> id: 3a6c -> priority: 1 
+Log: connection {1} has been disconnected by timeout; address {::ffff:127.0.0.1:64350}
