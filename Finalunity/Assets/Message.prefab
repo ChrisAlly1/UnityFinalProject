@@ -23,8 +23,8 @@ GameObject:
   - 114: {fileID: 114000012883475738}
   - 114: {fileID: 114000012605580538}
   - 114: {fileID: 114000014118506162}
-  - 114: {fileID: 114000011992644284}
-  - 114: {fileID: 114000014144272000}
+  - 114: {fileID: 114000012762340724}
+  - 114: {fileID: 114000014277661708}
   m_Layer: 5
   m_Name: Message
   m_TagString: Untagged
@@ -44,7 +44,6 @@ GameObject:
   - 114: {fileID: 114000013579712616}
   - 114: {fileID: 114000012322181330}
   - 114: {fileID: 114000011296769152}
-  - 114: {fileID: 114000011062244020}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -120,18 +119,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: New Text
---- !u!114 &114000011062244020
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012379283386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bbfc47e45881204489bb283a991a555, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputName: Fire1
 --- !u!114 &114000011296769152
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -150,18 +137,6 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
---- !u!114 &114000011992644284
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011778748666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73ecf5779c0987642ade361e028fbc81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 114000010568889536}
 --- !u!114 &114000012322181330
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -201,7 +176,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114000011992644284}
+      - m_Target: {fileID: 114000012762340724}
         m_MethodName: HideMessaage
         m_Mode: 1
         m_Arguments:
@@ -232,6 +207,18 @@ MonoBehaviour:
   m_PreferredHeight: 30
   m_FlexibleWidth: 1
   m_FlexibleHeight: -1
+--- !u!114 &114000012762340724
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011778748666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59fd5985addd2734b9647197600aae57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 114000010568889536}
 --- !u!114 &114000012883475738
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -357,7 +344,7 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 1
---- !u!114 &114000014144272000
+--- !u!114 &114000014277661708
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -371,24 +358,24 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 68
-    i1: 51
-    i2: 97
-    i3: 244
-    i4: 35
-    i5: 157
-    i6: 170
-    i7: 20
-    i8: 27
-    i9: 200
-    i10: 237
-    i11: 141
-    i12: 39
-    i13: 197
-    i14: 224
-    i15: 90
-  m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
+    i0: 135
+    i1: 175
+    i2: 183
+    i3: 184
+    i4: 204
+    i5: 222
+    i6: 237
+    i7: 52
+    i8: 40
+    i9: 185
+    i10: 154
+    i11: 95
+    i12: 162
+    i13: 218
+    i14: 252
+    i15: 75
+  m_ServerOnly: 1
+  m_LocalPlayerAuthority: 0
 --- !u!222 &222000012544564086
 CanvasRenderer:
   m_ObjectHideFlags: 1

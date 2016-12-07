@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-public class MessageFunction : MonoBehaviour {
+using UnityEngine.Networking;
+public class MessageFunction : NetworkBehaviour {
     [SerializeField] Text text;
 public void ShowMessage(string message)
     {
