@@ -26,15 +26,15 @@ public class ChatBoxFunctions : NetworkBehaviour {
             showHideButtonText.text = "Show Chat";
         }
     }
+
     public void SetMessage(string message)
     {
         this.message = message;
     }
-    public void ShowMessage()
-    {
-        if (message != "aaaa")
-        {
-            GameObject clone = (GameObject)Instantiate(newMessagePrefab);
+
+    public void ShowMessage() {
+        if (message != "aaaa") {
+            GameObject clone = Instantiate(newMessagePrefab);
             clone.transform.SetParent(messageParentPanel);
             clone.transform.SetSiblingIndex(messageParentPanel.childCount - 2);
             clone.GetComponent<MessageFunction>().ShowMessage(message);

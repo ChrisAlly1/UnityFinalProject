@@ -4,7 +4,6 @@ using UnityStandardAssets.Utility;
 using UnityEngine.Networking;
 using System.Collections.Generic;
 using UnityEngine.UI;
-using UnityStandardAssets.Characters.FirstPerson;
 
 [RequireComponent(typeof(CharacterController))]
 public class FirstPersonController : NetworkBehaviour {
@@ -23,7 +22,7 @@ public class FirstPersonController : NetworkBehaviour {
     [SerializeField] private LerpControlledBob m_JumpBob = new LerpControlledBob();
     [SerializeField] private float m_StepInterval;
 
-
+    private bool chatUp;
     private Camera m_Camera;
     private bool m_Jump;
     private float m_YRotation;
@@ -82,6 +81,7 @@ public class FirstPersonController : NetworkBehaviour {
             inventory = gameObject.GetComponent<Inventory>();
             powerActive = false; doubleDamageVar = false;
             pistol.SetActive(true); SMG.SetActive(false);
+            chatUp = false;
 
             //Attaches the gun to the camera
             foreach (Transform child in transform) {
@@ -118,133 +118,145 @@ public class FirstPersonController : NetworkBehaviour {
         Camera.main.transform.position = transform.position + transform.up * 0.5f;
         Camera.main.transform.parent = transform;
 
-        //equip smg
-        if (Input.GetKeyDown(KeyCode.O)) {
-            Debug.Log("SMG equipped");
-            smgE = true; pistolE = false;
-            pistol.SetActive(false); SMG.SetActive(true);
-        //equip pistol
-        } else if (Input.GetKeyDown(KeyCode.P)) {
-            Debug.Log("Pistol equipped");
-            smgE = false; pistolE = true;
-            pistol.SetActive(true); SMG.SetActive(false);
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            chatUp = !chatUp;
         }
 
-        //for activating power ups
-        //testing purposes ONLY
-        if (Input.GetKeyDown(KeyCode.I)) {
-            inventory.AddPowerUp(PowerUp.FAST_MOVE);
-        } else if (Input.GetKeyDown(KeyCode.G)) {
-            inventory.AddPowerUp(PowerUp.DOUBLE_DAMAGE);
-        } else if (Input.GetKeyDown(KeyCode.F)) {
-            inventory.AddPowerUp(PowerUp.FAST_FIRE);
-        } else if (Input.GetKeyDown(KeyCode.B)) {
-            inventory.AddPowerUp(PowerUp.INVINCIBLE);
-        } else if (Input.GetKeyDown(KeyCode.J)) {
-            inventory.AddPowerUp(PowerUp.JUMP_HIGH);
-        }
-
-        //Check if the player wishes to use a power up
-        if (!powerActive) {
-            if (Input.GetKeyDown(KeyCode.Keypad1)) {
-                currentPower = inventory.getPowerUp(1);
-                if (currentPower != PowerUp.NONE) {
-                    inventory.RemovePowerUp(1);
-                    powerEffect[currentPower]();
-                    powerActive = true;
-                }
-            } else if (Input.GetKeyDown(KeyCode.Keypad2)) {
-                currentPower = inventory.getPowerUp(2);
-                if (currentPower != PowerUp.NONE) {
-                    inventory.RemovePowerUp(2);
-                    powerEffect[currentPower]();
-                    powerActive = true;
-                }
-            } else if (Input.GetKeyDown(KeyCode.Keypad3)) {
-                currentPower = inventory.getPowerUp(3);
-                if (currentPower != PowerUp.NONE) {
-                    inventory.RemovePowerUp(3);
-                    powerEffect[currentPower]();
-                    powerActive = true;
-                }
-            } else if (Input.GetKeyDown(KeyCode.Keypad4)) {
-                currentPower = inventory.getPowerUp(4);
-                if (currentPower != PowerUp.NONE) {
-                    inventory.RemovePowerUp(4);
-                    powerEffect[currentPower]();
-                    powerActive = true;
-                }
-            } else if (Input.GetKeyDown(KeyCode.Keypad5)) {
-                currentPower = inventory.getPowerUp(5);
-                if (currentPower != PowerUp.NONE) {
-                    inventory.RemovePowerUp(5);
-                    powerEffect[currentPower]();
-                    powerActive = true;
-                }
-            }
-        } else {
-            powerUpTimer -= Time.deltaTime;
-            int g = (int)powerUpTimer;
-            powerUpTimerText.text = g.ToString();
-        }
-
-        if (powerUpTimer <= 0.0f) {
-            Debug.Log("Power up over");
-            if (currentPower == PowerUp.INVINCIBLE) {
-                health.SwitchInvincibility();
+        if (!chatUp) {
+            //equip smg
+            if (Input.GetKeyDown(KeyCode.O)) {
+                Debug.Log("SMG equipped");
+                smgE = true; pistolE = false;
+                pistol.SetActive(false); SMG.SetActive(true);
+                //equip pistol
+            } else if (Input.GetKeyDown(KeyCode.P)) {
+                Debug.Log("Pistol equipped");
+                smgE = false; pistolE = true;
+                pistol.SetActive(true); SMG.SetActive(false);
             }
 
-            powerUpTimerText.text = "";
-            m_WalkSpeed = 8; m_JumpSpeed = 6;
-            nextFireP = 0.7f; nextFireS = 0.1f;
-            powerUpTimer = 10.0f;
-            currentPower = PowerUp.NONE;
-            doubleDamageVar = false; powerActive = false;
-        }
+            //for activating power ups
+            //testing purposes ONLY
+            /*if (Input.GetKeyDown(KeyCode.I)) {
+                inventory.AddPowerUp(PowerUp.FAST_MOVE);
+            }
+            else if (Input.GetKeyDown(KeyCode.G)) {
+                inventory.AddPowerUp(PowerUp.DOUBLE_DAMAGE);
+            }
+            else if (Input.GetKeyDown(KeyCode.F)) {
+                inventory.AddPowerUp(PowerUp.FAST_FIRE);
+            }
+            else if (Input.GetKeyDown(KeyCode.B)) {
+                inventory.AddPowerUp(PowerUp.INVINCIBLE);
+            }
+            else if (Input.GetKeyDown(KeyCode.J)) {
+                inventory.AddPowerUp(PowerUp.JUMP_HIGH);
+            }*/
 
-        //countdown timer to allow the player to shoot again its just always subtracting and resets when the player shoots
-        nextFireP -= Time.deltaTime;
-        nextFireS -= Time.deltaTime;
-
-        //used to fire the smg
-        if (Input.GetButton("Fire1")) {
-            if (smgE && nextFireS <= 0.0f) {
-                CmdfireBullet();
-                //timer until can shoot again
-                if (currentPower == PowerUp.FAST_FIRE) {
-                    nextFireS = 0.05f;
-                } else {
-                    nextFireS = 0.1f;
+            //Check if the player wishes to use a power up
+            if (!powerActive) {
+                if (Input.GetButtonDown("Inventory1")) {
+                    currentPower = inventory.getPowerUp(1);
+                    if (currentPower != PowerUp.NONE) {
+                        inventory.RemovePowerUp(1);
+                        powerEffect[currentPower]();
+                        powerActive = true;
+                    }
+                } else if (Input.GetButtonDown("Inventory2")) {
+                    currentPower = inventory.getPowerUp(2);
+                    if (currentPower != PowerUp.NONE) {
+                        inventory.RemovePowerUp(2);
+                        powerEffect[currentPower]();
+                        powerActive = true;
+                    }
+                } else if (Input.GetButtonDown("Inventory3")) {
+                    currentPower = inventory.getPowerUp(3);
+                    if (currentPower != PowerUp.NONE) {
+                        inventory.RemovePowerUp(3);
+                        powerEffect[currentPower]();
+                        powerActive = true;
+                    }
+                } else if (Input.GetButtonDown("Inventory4")) {
+                    currentPower = inventory.getPowerUp(4);
+                    if (currentPower != PowerUp.NONE) {
+                        inventory.RemovePowerUp(4);
+                        powerEffect[currentPower]();
+                        powerActive = true;
+                    }
+                } else if (Input.GetButtonDown("Inventory5")) {
+                    currentPower = inventory.getPowerUp(5);
+                    if (currentPower != PowerUp.NONE) {
+                        inventory.RemovePowerUp(5);
+                        powerEffect[currentPower]();
+                        powerActive = true;
+                    }
                 }
-            } else if (pistolE && nextFireP <= 0.0f) {
-                CmdfireBullet();
-                //timer until can shoot again
-                if (currentPower == PowerUp.FAST_FIRE) {
-                    nextFireP = 0.35f;
-                } else {
-                    nextFireP = 0.7f;
+            } else {
+                powerUpTimer -= Time.deltaTime;
+                int g = (int)powerUpTimer;
+                powerUpTimerText.text = g.ToString();
+            }
+
+            if (powerUpTimer <= 0.0f) {
+                Debug.Log("Power up over");
+                if (currentPower == PowerUp.INVINCIBLE) {
+                    health.SwitchInvincibility();
+                }
+
+                powerUpTimerText.text = "";
+                m_WalkSpeed = 8; m_JumpSpeed = 6;
+                nextFireP = 0.7f; nextFireS = 0.1f;
+                powerUpTimer = 10.0f;
+                currentPower = PowerUp.NONE;
+                doubleDamageVar = false; powerActive = false;
+            }
+
+            //countdown timer to allow the player to shoot again its just always subtracting and resets when the player shoots
+            nextFireP -= Time.deltaTime;
+            nextFireS -= Time.deltaTime;
+
+            //used to fire the guns
+            if (Input.GetButton("Fire1")) {
+                if (smgE && nextFireS <= 0.0f) {
+                    CmdfireBullet();
+                    //timer until can shoot again
+                    if (currentPower == PowerUp.FAST_FIRE) {
+                        nextFireS = 0.05f;
+                    }
+                    else {
+                        nextFireS = 0.1f;
+                    }
+                } else if (pistolE && nextFireP <= 0.0f) {
+                    CmdfireBullet();
+                    //timer until can shoot again
+                    if (currentPower == PowerUp.FAST_FIRE) {
+                        nextFireP = 0.35f;
+                    }
+                    else {
+                        nextFireP = 0.7f;
+                    }
                 }
             }
+
+            RotateView();
+
+            // the jump state needs to read here to make sure it is not missed
+            if (!m_Jump) {
+                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
+            }
+
+            if (!m_PreviouslyGrounded && m_CharacterController.isGrounded) {
+                StartCoroutine(m_JumpBob.DoBobCycle());
+                m_MoveDir.y = 0f;
+                m_Jumping = false;
+            }
+
+            if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded) {
+                m_MoveDir.y = 0f;
+            }
+
+            m_PreviouslyGrounded = m_CharacterController.isGrounded;
         }
-
-        RotateView();
-
-        // the jump state needs to read here to make sure it is not missed
-        if (!m_Jump) {
-            m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
-        }
-
-        if (!m_PreviouslyGrounded && m_CharacterController.isGrounded) {
-            StartCoroutine(m_JumpBob.DoBobCycle());
-            m_MoveDir.y = 0f;
-            m_Jumping = false;
-        }
-
-        if (!m_CharacterController.isGrounded && !m_Jumping && m_PreviouslyGrounded) {
-            m_MoveDir.y = 0f;
-        }
-
-        m_PreviouslyGrounded = m_CharacterController.isGrounded;
     }
 
     [Command]
@@ -314,38 +326,41 @@ public class FirstPersonController : NetworkBehaviour {
             return;
         }
 
-        float speed;
-        GetInput(out speed);
-        // always move along the camera forward as it is the direction that it being aimed at
-        Vector3 desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
+        if (!chatUp) {
+            float speed;
+            GetInput(out speed);
+            // always move along the camera forward as it is the direction that it being aimed at
+            Vector3 desiredMove = transform.forward * m_Input.y + transform.right * m_Input.x;
 
-        // get a normal for the surface that is being touched to move along it
-        RaycastHit hitInfo;
-        Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
-                           m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
-        desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
+            // get a normal for the surface that is being touched to move along it
+            RaycastHit hitInfo;
+            Physics.SphereCast(transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
+                               m_CharacterController.height / 2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+            desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
 
-        m_MoveDir.x = desiredMove.x * speed;
-        m_MoveDir.z = desiredMove.z * speed;
+            m_MoveDir.x = desiredMove.x * speed;
+            m_MoveDir.z = desiredMove.z * speed;
 
-        if (m_CharacterController.isGrounded) {
-            m_MoveDir.y = -m_StickToGroundForce;
+            if (m_CharacterController.isGrounded) {
+                m_MoveDir.y = -m_StickToGroundForce;
 
-            if (m_Jump) {
-                m_MoveDir.y = m_JumpSpeed;
-                m_Jump = false;
-                m_Jumping = true;
+                if (m_Jump) {
+                    m_MoveDir.y = m_JumpSpeed;
+                    m_Jump = false;
+                    m_Jumping = true;
+                }
             }
-        } else {
-            m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.fixedDeltaTime;
+            else {
+                m_MoveDir += Physics.gravity * m_GravityMultiplier * Time.fixedDeltaTime;
+            }
+
+            m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
+
+            ProgressStepCycle(speed);
+            UpdateCameraPosition(speed);
+
+            m_MouseLook.UpdateCursorLock();
         }
-
-        m_CollisionFlags = m_CharacterController.Move(m_MoveDir * Time.fixedDeltaTime);
-
-        ProgressStepCycle(speed);
-        UpdateCameraPosition(speed);
-
-       m_MouseLook.UpdateCursorLock();
     }
 
     private void ProgressStepCycle(float speed) {

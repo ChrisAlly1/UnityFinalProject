@@ -52,7 +52,11 @@ public class Health : NetworkBehaviour {
 
                     GameObject powerup = (GameObject)Instantiate(powerups[i], gameObject.transform.position, gameObject.transform.rotation);
                     NetworkServer.Spawn(powerup);
+
+                    Destroy(powerup, 10);
                 }
+
+                EnemySpawner.removeEnemy();
                 Destroy(gameObject);
             } else {
                 currentHealth = maxHealth;

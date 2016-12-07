@@ -542,9 +542,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebbff5e25ea362a45a07d3f5bce6a6be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  contentSizeFitter1: {fileID: 114000010983973784}
-  showHideButtonText: {fileID: 114000013020043402}
-  messageParentPanel: {fileID: 224000010732993516}
+  contentSizeFitter1: {fileID: 1684955508}
+  showHideButtonText: {fileID: 53790112}
+  messageParentPanel: {fileID: 795045746}
   newMessagePrefab: {fileID: 1000011778748666, guid: 1bc5973b683dbd14d864bee06583e26f,
     type: 2}
 --- !u!114 &114000012653504850

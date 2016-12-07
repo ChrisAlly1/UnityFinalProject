@@ -7,8 +7,7 @@ public class WaveSpawner : NetworkBehaviour {
 	public enum SpawnState { SPAWNING, WAITING, COUNTING };
 
 	[System.Serializable]
-	public class Wave
-	{
+	public class Wave {
 		public string name;
 		public Transform enemy;
 		public int count;

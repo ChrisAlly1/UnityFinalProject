@@ -25,7 +25,7 @@ GameObject:
   - 65: {fileID: 65000013032054362}
   m_Layer: 0
   m_Name: FastMovePowerup
-  m_TagString: Powerup1
+  m_TagString: FastMove
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

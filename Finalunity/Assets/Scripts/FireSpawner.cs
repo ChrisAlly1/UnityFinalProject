@@ -14,18 +14,16 @@ public class FireSpawner : NetworkBehaviour {
         Spawn();
     }
 
-    void Update()
-    {
+    void Update() {
         fireRespawn -= Time.deltaTime;
-        if (fireRespawn <= 0)
-        {
+        if (fireRespawn <= 0) {
             Spawn();
         }
     }
 
     void Spawn() {
         for (int i = 0; i < numberOfFires; i++) {
-            Vector3 spawnPosition = new Vector3(Random.Range(-32.0f, 32.0f), 1.2f, Random.Range(-32.0f, 32.0f));
+            Vector3 spawnPosition = new Vector3(Random.Range(-24.0f, 24.0f), 1.2f, Random.Range(-35.0f, 35.0f));
 
             GameObject fire = (GameObject)Instantiate(firePrefab, spawnPosition, spawnRotation);
 
