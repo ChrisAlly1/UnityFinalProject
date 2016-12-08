@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44692534, g: 0.4967872, b: 0.57508564, a: 1}
+  m_IndirectSpecularColor: {r: 0.44692492, g: 0.4967869, b: 0.57508546, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -3729,7 +3729,6 @@ GameObject:
   - 114: {fileID: 1829177878}
   - 114: {fileID: 1829177879}
   - 114: {fileID: 1829177880}
-  - 114: {fileID: 1829177876}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -3737,19 +3736,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1829177876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1829177875}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 460b1a2e3b8b7354aaa41d81e8c429a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objPrefab: {fileID: 1000012668737288, guid: 0c6007a3815392448bdb2452647c2fba, type: 2}
-  player: {fileID: 1000013443272554, guid: 2bbc86130a8055348b34956a24d1f556, type: 2}
 --- !u!4 &1829177877
 Transform:
   m_ObjectHideFlags: 0
@@ -3985,7 +3971,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1916643837}
   - 114: {fileID: 1916643836}
-  - 114: {fileID: 1916643835}
+  - 114: {fileID: 1916643838}
   m_Layer: 0
   m_Name: EnemySpawn
   m_TagString: Untagged
@@ -3993,20 +3979,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1916643835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1916643834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8ba22cff06aa7149ba7e39b1925790b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1000012668737288, guid: 6c3b52f2bbee8674c8562ae547b6f8e5,
-    type: 2}
-  spawnPoint: {fileID: 1916643837}
 --- !u!114 &1916643836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4052,6 +4024,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
+--- !u!114 &1916643838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1916643834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 460b1a2e3b8b7354aaa41d81e8c429a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objPrefab: {fileID: 1000012668737288, guid: 0c6007a3815392448bdb2452647c2fba, type: 2}
+  spawnPoint: {fileID: 1916643837}
 --- !u!1 &1992969252
 GameObject:
   m_ObjectHideFlags: 0

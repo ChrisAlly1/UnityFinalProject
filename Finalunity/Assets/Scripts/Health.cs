@@ -56,7 +56,7 @@ public class Health : NetworkBehaviour {
                     Destroy(powerup, 10);
                 }
 
-                EnemySpawner.removeEnemy();
+                GlobalFlock.removeEnemy();
                 Destroy(gameObject);
             } else {
                 currentHealth = maxHealth;
